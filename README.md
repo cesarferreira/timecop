@@ -34,3 +34,23 @@ protected void onStop() {
 }
 
 ```
+
+# Installation
+
+Add it in your root build.gradle at the end of repositories:
+
+```groovy
+allprojects {
+		repositories {
+			...
+			maven { url "https://jitpack.io" }
+		}
+	}
+```
+
+Now add your dependency:
+```groovy
+dependencies {
+  compile 'com.github.cesarferreira.timecop:com.cesarferreira.timecop:0.2.0'
+}
+```
