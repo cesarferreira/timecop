@@ -51,6 +51,6 @@ allprojects {
 Now add your dependency:
 ```groovy
 dependencies {
-  compile 'com.github.cesarferreira.timecop:com.cesarferreira.timecop:0.2.0'
+  compile 'com.github.cesarferreira.timecop:library:0.2.0'
 }
 ```
