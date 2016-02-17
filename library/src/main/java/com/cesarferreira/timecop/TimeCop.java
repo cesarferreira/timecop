@@ -82,6 +82,13 @@ public class TimeCop {
 		return difference;
 	}
 
+
+	public void tickAndDisplayLog(String key) {
+		long difference = tick(key);
+		Log.d(TIMECOP_TAG, difference + " ms - DIFFERENCE - forKey: " + key);
+
+	}
+
 	/**
 	 * Stop the timer and deletes the key
 	 *
@@ -111,7 +118,7 @@ public class TimeCop {
 		return difference;
 	}
 
-	public void stopAndDisplayTimePast(String key) {
+	public void stopAndDisplayLog(String key) {
 		long difference = stop(key);
 		Log.d(TIMECOP_TAG, difference + " ms - forKey: " + key);
 	}

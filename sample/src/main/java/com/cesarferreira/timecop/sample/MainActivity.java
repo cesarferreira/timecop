@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
 		// stop the timer
 		TimeCop.getInstance(context)
-			.stopAndDisplayTimePast(TAG_TEST);
+			.stopAndDisplayLog(TAG_TEST);
 	}
 
 	private void log(String msg) {
