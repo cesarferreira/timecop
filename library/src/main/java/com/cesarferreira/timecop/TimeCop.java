@@ -65,7 +65,7 @@ public class TimeCop {
 		long pastTimestamp = PainlessPrefs.getInstance(context).getLong(TIMER_PREFIX + key, -1);
 
 		if (pastTimestamp == -1) {
-			throw new InvalidKeyForTimeStampException();
+			Log.e(TIMECOP_TAG, "InvalidKey '" + key + "'");
 		}
 
 		// current timestamp
@@ -81,7 +81,6 @@ public class TimeCop {
 
 		return difference;
 	}
-
 
 	public void tickAndDisplayLog(String key) {
 		long difference = tick(key);
@@ -100,7 +99,7 @@ public class TimeCop {
 		long pastTimestamp = PainlessPrefs.getInstance(context).getLong(TIMER_PREFIX + key, -1);
 
 		if (pastTimestamp == -1) {
-			throw new InvalidKeyForTimeStampException();
+			Log.e(TIMECOP_TAG, "InvalidKey '" + key + "'");
 		}
 
 		// current timestamp
