@@ -15,7 +15,7 @@ setupViews();
 
 // stop the timer
 TimeCop.getInstance(ctx)
-	.stopAndDisplayTimePast(LOAD_VIEWS_TAG);
+	.stopAndDisplayLog(LOAD_VIEWS_TAG);
 
 // outputs =>  D/TIMECOP: 668 ms - forKey: LOAD_VIEWS_TAG
 
@@ -37,6 +37,6 @@ allprojects {
 Now add your dependency:
 ```groovy
 dependencies {
-	compile 'com.github.cesarferreira:timecop:0.3.1'
+	compile 'com.github.cesarferreira:timecop:0.3.2'
 }
 ```
