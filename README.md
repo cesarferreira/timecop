@@ -37,6 +37,6 @@ allprojects {
 Now add your dependency:
 ```groovy
 dependencies {
-	compile 'com.github.cesarferreira:timecop:0.3.2'
+	compile 'com.github.cesarferreira:timecop:0.3.3'
 }
 ```
