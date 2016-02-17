@@ -12,46 +12,46 @@ import static java.lang.Thread.sleep;
 
 public class MainActivity extends AppCompatActivity {
 
-	private Context context;
+    private Context context;
 
-	String TAG_TEST = "sometag";
+    String TAG_TEST = "TIME_PAST_KEY";
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-		context = getApplicationContext();
-	}
+        context = getApplicationContext();
+    }
 
-	@Override
-	protected void onStop() {
-		super.onStop();
-	}
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 
-	public void performClick(View view) {
+    public void performClick(View view) {
 
-		// start the timer
-		TimeCop.getInstance(context).start(TAG_TEST);
+        // start the timer
+        TimeCop.getInstance(context).start(TAG_TEST);
 
-		for (int i = 0; i < 100; i++) {
-			try {
-				sleep(5);
-			} catch (Exception ignored) {
-			}
+        for (int i = 0; i < 100; i++) {
+            try {
+                sleep(5);
+            } catch (Exception ignored) {
+            }
 
-			if (i % 10 == 0) {
-				log("more 10% took: " + TimeCop.getInstance(context).tick(TAG_TEST) + " ms");
-			}
-		}
+            if (i % 10 == 0) {
+                TimeCop.getInstance(context).tickAndDisplayLog(TAG_TEST);
+            }
+        }
 
-		// stop the timer
-		TimeCop.getInstance(context)
-			.stopAndDisplayLog(TAG_TEST);
-	}
+        // stop the timer
+        TimeCop.getInstance(context)
+                .stopAndDisplayLog(TAG_TEST);
+    }
 
-	private void log(String msg) {
-		Log.d("tag", msg);
-	}
+    private void log(String msg) {
+        Log.d("tag", msg);
+    }
 
 }
