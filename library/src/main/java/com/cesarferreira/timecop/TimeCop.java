@@ -1,23 +1,29 @@
 package com.cesarferreira.timecop;
 
 
+import android.content.Context;
+
 import java.util.Calendar;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class TimeCop {
-    private static TimeCop ourInstance = new TimeCop();
+    private static TimeCop ourInstance;
+    private Context context;
 
-    public static TimeCop getInstance() {
+    public static TimeCop getInstance(Context context) {
+        if (ourInstance == null) {
+            ourInstance = new TimeCop();
+            ourInstance.context = context;
+        }
         return ourInstance;
     }
-
 
     private TimeCop() {
     }
 
-    private static final String TIMER_PREFIX = "TIMER-";
-    
+    private final String TIMER_PREFIX = "TIMER-";
+
 
     /**
      * Start counting time
@@ -25,7 +31,7 @@ public class TimeCop {
      * @param key the key for the timestamp
      * @return the timestamp
      */
-    public static long start(String key) {
+    public long start(String key) {
 
         if (key.isEmpty()) {
             throw new InvalidKeyForTimeStampException();
@@ -35,7 +41,7 @@ public class TimeCop {
         long timestamp = getCurrentTimeInMilliseconds();
 
         // save the timestamp
-        SimplePrefs.save(TIMER_PREFIX + key, timestamp);
+        PainlessPrefs.getInstance(ourInstance.context).save(TIMER_PREFIX + key, timestamp);
 
         return timestamp;
     }
@@ -45,18 +51,18 @@ public class TimeCop {
      *
      * @param key the key for the timestamp
      */
-    public static void reset(String key) {
+    public void reset(String key) {
         // delete the key
-        SimplePrefs.remove(TIMER_PREFIX + key);
+        PainlessPrefs.getInstance(context).remove(TIMER_PREFIX + key);
     }
 
     /**
      * @param key the key for the timestamp
      * @return the difference since the timer started
      */
-    public static long tick(String key) {
+    public long tick(String key) {
 
-        long pastTimestamp = SimplePrefs.getLong(TIMER_PREFIX + key, -1);
+        long pastTimestamp = PainlessPrefs.getInstance(context).getLong(TIMER_PREFIX + key, -1);
 
         if (pastTimestamp == -1) {
             throw new InvalidKeyForTimeStampException();
@@ -82,9 +88,9 @@ public class TimeCop {
      * @param key the key for the timestamp
      * @return return the difference
      */
-    public static long stop(String key) {
+    public long stop(String key) {
 
-        long pastTimestamp = SimplePrefs.getLong(TIMER_PREFIX + key, -1);
+        long pastTimestamp = PainlessPrefs.getInstance(context).getLong(TIMER_PREFIX + key, -1);
 
         if (pastTimestamp == -1) {
             throw new InvalidKeyForTimeStampException();
@@ -100,7 +106,7 @@ public class TimeCop {
             throw new InvalidKeyForTimeStampException();
         }
         // delete the key
-        SimplePrefs.remove(TIMER_PREFIX + key);
+        PainlessPrefs.getInstance(context).remove(TIMER_PREFIX + key);
 
         return difference;
     }
@@ -108,11 +114,11 @@ public class TimeCop {
     /**
      * Resets all the timestamps
      */
-    public static void resetAllTimestamps() {
-        Map<String, ?> allEntries = SimplePrefs.getAll();
+    public void resetAllTimestamps() {
+        Map<String, ?> allEntries = PainlessPrefs.getInstance(context).getAll();
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
             if (entry.getKey().startsWith(TIMER_PREFIX)) {
-                SimplePrefs.remove(entry.getKey());
+                PainlessPrefs.getInstance(context).remove(entry.getKey());
             }
         }
     }

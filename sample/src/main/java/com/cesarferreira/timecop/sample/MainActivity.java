@@ -1,5 +1,6 @@
 package com.cesarferreira.timecop.sample;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,10 +12,14 @@ import static java.lang.Thread.sleep;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        context = getApplicationContext();
     }
 
     @Override
@@ -27,22 +32,22 @@ public class MainActivity extends AppCompatActivity {
         String timerTag = "test";
 
         // start the timer
-        TimeCop.start(timerTag);
+        TimeCop.getInstance(context).start(timerTag);
 
         for (int i = 0; i < 100; i++) {
             try{
                 // Do some work here
-                sleep(500);
+                sleep(5);
             } catch (Exception e) {
             }
 
             if (i % 10 == 0) {
-                log("more 10% took: " + TimeCop.tick(timerTag) + " ms");
+                log("more 10% took: " + TimeCop.getInstance(context).tick(timerTag) + " ms");
             }
         }
 
         // stop the timer
-        long difference = TimeCop.stop(timerTag);
+        long difference = TimeCop.getInstance(context).stop(timerTag);
 
         log("time past: " + difference + " ms");
     }
