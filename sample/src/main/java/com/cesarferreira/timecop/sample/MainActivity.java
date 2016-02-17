@@ -12,48 +12,46 @@ import static java.lang.Thread.sleep;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Context context;
+	private Context context;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+	String TAG_TEST = "sometag";
 
-        context = getApplicationContext();
-    }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
+		context = getApplicationContext();
+	}
 
-    public void performClick(View view) {
+	@Override
+	protected void onStop() {
+		super.onStop();
+	}
 
-        String timerTag = "test";
+	public void performClick(View view) {
 
-        // start the timer
-        TimeCop.getInstance(context).start(timerTag);
+		// start the timer
+		TimeCop.getInstance(context).start(TAG_TEST);
 
-        for (int i = 0; i < 100; i++) {
-            try{
-                // Do some work here
-                sleep(5);
-            } catch (Exception e) {
-            }
+		for (int i = 0; i < 100; i++) {
+			try {
+				sleep(5);
+			} catch (Exception ignored) {
+			}
 
-            if (i % 10 == 0) {
-                log("more 10% took: " + TimeCop.getInstance(context).tick(timerTag) + " ms");
-            }
-        }
+			if (i % 10 == 0) {
+				log("more 10% took: " + TimeCop.getInstance(context).tick(TAG_TEST) + " ms");
+			}
+		}
 
-        // stop the timer
-        long difference = TimeCop.getInstance(context).stop(timerTag);
+		// stop the timer
+		TimeCop.getInstance(context)
+			.stopAndDisplayTimePast(TAG_TEST);
+	}
 
-        log("time past: " + difference + " ms");
-    }
-
-    private void log(String msg) {
-        Log.d("tag", msg);
-    }
+	private void log(String msg) {
+		Log.d("tag", msg);
+	}
 
 }
